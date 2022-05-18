@@ -5,7 +5,12 @@ using System.Threading.Tasks;
 
 namespace IngressoMVC.Models
 {
-    public class Categoria
+    public class Categoria : IEntidade
     {
+        public int Id { get; set; }
+        public DateTime DataCadastro { get; set; }
+        public DateTime DataAlteracao { get; set; }
+        public string Nome { get; set; }
+        public List<FilmeCategoria> FilmesCategorias { get; set; }
     }
 }
