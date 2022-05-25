@@ -104,13 +104,13 @@ namespace IngressoMVC.Migrations
                         column: x => x.AtorId,
                         principalTable: "Artistas",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_AtoresFilmes_Filmes_FilmeId",
                         column: x => x.FilmeId,
                         principalTable: "Filmes",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -128,13 +128,13 @@ namespace IngressoMVC.Migrations
                         column: x => x.CategoriaId,
                         principalTable: "Categorias",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_FilmesCategorias_Filmes_FilmeId",
                         column: x => x.FilmeId,
                         principalTable: "Filmes",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
