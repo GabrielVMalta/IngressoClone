@@ -1,22 +1,71 @@
 ﻿@model IEnumerable<Ator>
 
 <div class="row">
-    <div class="col-md-8 offset-md-2">
-        <table class="table">
+
+    <div class="col-md-10 offset-md-1">
+
+        <h1>
+            Atores
+            -
+            <a class="btn btn-dark" href="#">
+                Cadastrar
+            </a>
+        </h1>
+
+        <div class="col-12 my-2">
+            <input class="form-control" type="text" name="nome" id="nome" placeholder="Digite o nome do Ator"/>
+        </div>
+
+        <br />
+
+        <table class="table table-striped">
+
             <thead>
+
                 <tr>
+                    <th>Ações</th>
                     <th>Foto de Perfli</th>
                     <th>Nome</th>
                     <th>Biografia</th>
                 </tr>
+
             </thead>
+
             <tbody>
+
                 @foreach (var ator in Model)
                 {
                     <tr>
-                        <td class="align-middle"><img src="@ator.FotoPerfilURL" style="max-width 100px" alt="@ator.Nome">Imagem.jpg</td>
-                        <td class="align-middle">@ator.Nome</td>
-                        <td class="align-middle">@ator.Bio</td>
+                        <td width="100">
+
+                            <div class="d-flex flex-column">
+
+                                <a class="btn btn-success mt-1" href="#">
+
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                    Editar
+                                </a>
+
+                               
+
+                                <a class="btn btn-primary mt-1" href="#">
+                                    <i class="fa-solid fa-eye"></i>
+                                    Ver
+                                </a>
+
+                               
+
+                                <a class="btn btn-danger mt-1" href="#">
+                                    <i class="fa-solid fa-eraser"></i>
+                                    Excluir
+                                </a>
+                            </div>
+                        </td>
+
+                        <td width="100" class="align-middle"><img src="@ator.FotoPerfilURL" style="max-width:100px" alt="@ator.Nome"></td>
+                        <td width="100" class="align-middle">@ator.Nome</td>
+                        <td width="100" class="align-middle">@ator.Bio</td>
+
                     </tr>
                 }
             </tbody>
