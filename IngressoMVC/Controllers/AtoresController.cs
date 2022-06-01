@@ -28,5 +28,24 @@ namespace IngressoMVC.Controllers
 
             return View(result);
         }
+
+        public IActionResult Criar()
+        {
+            return View();
+        }
+
+        public IActionResult Atualizar()
+        {
+            // buscar o ator na view
+            // passar o ator na view
+            return View();
+        }
+
+        public IActionResult Deletar(int id)
+        {
+            // buscar o ator no banco
+            // buscar o ator na view
+            return View();
+        }
     }
 }

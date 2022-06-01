@@ -1,14 +1,11 @@
-﻿@model IEnumerable<Ator>
+@model IEnumerable<Cinema>
 
-@{
-    ViewData["Title"] = "Índice Atores";
-}
 <div class="row">
 
     <div class="col-md-10 offset-md-1">
 
         <h1>
-            Atores
+            Cinemas
             -
             <a class="btn btn-dark" href="#">
                 Cadastrar
@@ -16,7 +13,7 @@
         </h1>
 
         <div class="col-12 my-2">
-            <input class="form-control" type="text" name="nome" id="nome" placeholder="Digite o nome do Ator"/>
+            <input class="form-control" type="text" name="nome" id="nome" placeholder="Digite o nome do Cinemas"/>
         </div>
 
         <br />
@@ -27,22 +24,21 @@
 
                 <tr>
                     <th>Ações</th>
-                    <th>@Html.DisplayNameFor(model => model.FotoPerfilURL)</th>
-                    <th>@Html.DisplayNameFor(model => model.Nome)</th>
+                    <th>Nome</th>
                 </tr>
 
             </thead>
 
             <tbody>
 
-                @foreach (var ator in Model)
+                @foreach (var cinemas in Model)
                 {
                     <tr>
                         <td width="100">
 
                             <div class="d-flex flex-column">
 
-                                <a class="btn btn-success mt-1" asp-action="Atualizar" asp-route-id="@ator.Id">
+                                <a class="btn btn-success mt-1" asp-action="Atualizar" asp-route-id="@cinemas.Id">
 
                                     <i class="fa-solid fa-pen-to-square"></i>
                                     Editar
@@ -50,22 +46,22 @@
 
                                
 
-                                <a class="btn btn-primary mt-1" asp-action="Detalhes" asp-route-id="@ator.Id">
+                                <a class="btn btn-primary mt-1" asp-action="Detalhes" asp-route-id="@cinemas.Id">
                                     <i class="fa-solid fa-eye"></i>
                                     Ver
                                 </a>
 
                                
 
-                                <a class="btn btn-danger mt-1" asp-action="Deletar" asp-route-is="@ator.Id">
+                                <a class="btn btn-danger mt-1" asp-action="Deletar" asp-route-is="@cinemas.Id">
                                     <i class="fa-solid fa-eraser"></i>
                                     Excluir
                                 </a>
                             </div>
                         </td>
 
-                        <td width="100" class="align-middle"><img src="@ator.FotoPerfilURL" style="max-width:100px" alt="@ator.Nome"></td>
-                        <td width="100" class="align-middle">@ator.Nome</td>
+                        <img src="@cinemas.LogoUrl" alt="">
+                        <td width="100" class="align-middle">@cinemas.Nome</td>
 
                     </tr>
                 }
