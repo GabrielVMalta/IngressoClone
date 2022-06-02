@@ -1,3 +1,29 @@
-@model Categoria
+@model IngressoMVC.Models.Request.PostCategoriaDTO
+{
 
-<h1>Criar nova Categoria</h1>
+@{
+    ViewData["Title"] = "Adicionar nova Categoria";
+}
+
+<div class="row text">
+    <div class="col-md-8 offset-2">
+        <p>
+            <h1>Criar nova Categoria</h1>
+        </p>
+        <div class="row">
+            <div class="col-md-8 offset-2">
+                <form asp-action="Criar">
+                    <div class="form-group">
+                        <label asp-for="Nome" class="control-label"></label>
+                        <input asp-for="Nome" class="form-control" />
+                    </div>
+
+                    <div class="form-group">
+                        <input type="submit" value="Criar" class="btn btn-outline-success" />
+                        <a class="btn btn-outline-secondary" asp-action="Index">Listar Todas</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

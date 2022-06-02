@@ -1,4 +1,6 @@
 ﻿using IngressoMVC.Data;
+using IngressoMVC.Models;
+using IngressoMVC.Models.Request;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -23,9 +25,9 @@ namespace IngressoMVC.Controllers
             return View(result);
         }
 
-        public IActionResult Detalhes(int id)
+        public IActionResult Detalhes(string nome)
         {
-            var result = _context.Cinemas.Find(id);
+            var result = _context.Cinemas.Find(nome);
 
             return View(result);
         }
@@ -33,6 +35,15 @@ namespace IngressoMVC.Controllers
         public IActionResult Criar()
         {
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult Criar(PostCinemaDTO cinemaDTO)
+        {
+            Cinema cinema = new Cinema(cinemaDTO.Nome, cinemaDTO.Descricao, cinemaDTO.LogoUrl);
+            _context.Cinemas.Add(cinema);
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Index));
         }
 
         public IActionResult Atualizar()

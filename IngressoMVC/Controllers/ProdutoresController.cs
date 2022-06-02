@@ -1,4 +1,6 @@
 ﻿using IngressoMVC.Data;
+using IngressoMVC.Models;
+using IngressoMVC.Models.Request;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -33,6 +35,18 @@ namespace IngressoMVC.Controllers
         public IActionResult Criar()
         {
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult Criar(PostProdutorDTO produtorDTO)
+        {
+            Produtor produtor = new Produtor(produtorDTO.Nome, produtorDTO.Bio, produtorDTO.FotoPerfilURL);
+
+            _context.Produtores.Add(produtor);
+
+            _context.SaveChanges();
+
+            return RedirectToAction(nameof(Index));
         }
 
         public IActionResult Atualizar()

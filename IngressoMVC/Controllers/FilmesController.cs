@@ -33,7 +33,7 @@ namespace IngressoMVC.Controllers
         {
             return View();
         }
-
+        
         public IActionResult Atualizar(int id)
         {
             return View();
