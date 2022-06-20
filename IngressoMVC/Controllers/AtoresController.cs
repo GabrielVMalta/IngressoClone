@@ -39,14 +39,16 @@ namespace IngressoMVC.Controllers
         public IActionResult Criar(PostAtorDTO atorDTO)
         {
             //receber os dados - ok
-
             //validar os dados
-            //instanciar novo ator
-            Ator ator = new Ator(atorDTO.Nome, atorDTO.Bio, atorDTO.FotoPerfilURL);
+            if (!ModelState.IsValid || !atorDTO.FotoPerfilURL.EndsWith(".jpg"))
+            {
+                return View(atorDTO);
+            }
             //instanciar um novo ator que recebe os dados -- ok
-            _context.Atores.Add(ator);
+            Ator ator = new Ator(atorDTO.Nome, atorDTO.Bio, atorDTO.FotoPerfilURL);
 
-            //gravar esse ator no banco de dados
+            //gravar esse ator no banco de dados -- ok
+            _context.Atores.Add(ator);
 
             //salvar as mudanças -- ok
             _context.SaveChanges();
@@ -54,7 +56,7 @@ namespace IngressoMVC.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        public IActionResult Atualizar()
+        public IActionResult Atualizar(int id)
         {
             // buscar o ator na view
             // passar o ator na view
@@ -64,8 +66,21 @@ namespace IngressoMVC.Controllers
         public IActionResult Deletar(int id)
         {
             // buscar o ator no banco
+            var result = _context.Atores.FirstOrDefault(a => a.Id == id);
             // buscar o ator na view
-            return View();
+            if (result == null) return View();
+
+            return View(result);
+        }
+
+        [HttpDelete, ActionName("Deletar")]
+        public IActionResult ConfirmarDeletar(int id)
+        {
+            var result = _context.Atores.FirstOrDefault(a => a.Id == id);
+            _context.Atores.Remove(result);
+            _context.SaveChanges();
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }

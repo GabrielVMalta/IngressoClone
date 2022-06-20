@@ -1,5 +1,6 @@
 ﻿using IngressoMVC.Data;
 using IngressoMVC.Models;
+using IngressoMVC.Models.ViewModels.RequestDTO;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -33,6 +34,33 @@ namespace IngressoMVC.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public IActionResult Criar(PostFilmeDTO filmeDto)
+        {
+            var cinema = _context.Cinemas.FirstOrDefault(c => c.Nome == filmeDto.NomeCinema);
+            if (cinema == null) return View();
+
+            var produtor = _context.Produtores.FirstOrDefault(p => p.Nome == filmeDto.NomePodutor);
+            if (produtor == null) return View();
+
+            Filme filme = new Filme
+                (
+                    filmeDto.Titulo,
+                    filmeDto.Descricao,
+                    filmeDto.Preco,
+                    filmeDto.ImageURL,
+                    cinema.Id,
+                    produtor.Id
+                );
+
+            _context.Add(filme);
+            _context.SaveChanges();
+
+            //Incluir Relacionamentos
+            return RedirectToAction(nameof(Index));
+        }
+
         
         public IActionResult Atualizar(int id)
         {
