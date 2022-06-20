@@ -36,20 +36,20 @@ namespace IngressoMVC.Controllers
         }
 
         [HttpPost]
-        public IActionResult Criar(PostFilmeDTO filmeDto)
+        public IActionResult Criar(PostFilmeDTO filmeDTO)
         {
-            var cinema = _context.Cinemas.FirstOrDefault(c => c.Nome == filmeDto.NomeCinema);
+            var cinema = _context.Cinemas.FirstOrDefault(c => c.Nome == filmeDTO.NomeCinema);
             if (cinema == null) return View();
 
-            var produtor = _context.Produtores.FirstOrDefault(p => p.Nome == filmeDto.NomePodutor);
+            var produtor = _context.Produtores.FirstOrDefault(p => p.Nome == filmeDTO.NomePodutor);
             if (produtor == null) return View();
 
             Filme filme = new Filme
                 (
-                    filmeDto.Titulo,
-                    filmeDto.Descricao,
-                    filmeDto.Preco,
-                    filmeDto.ImageURL,
+                    filmeDTO.Titulo,
+                    filmeDTO.Descricao,
+                    filmeDTO.Preco,
+                    filmeDTO.ImageURL,
                     cinema.Id,
                     produtor.Id
                 );
