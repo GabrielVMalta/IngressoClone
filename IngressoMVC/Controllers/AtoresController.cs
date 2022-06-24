@@ -1,23 +1,18 @@
 ﻿using IngressoMVC.Data;
 using IngressoMVC.Models;
 using IngressoMVC.Models.Request;
+using IngressoMVC.Models.ViewModels.RequestDTO;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-
 namespace IngressoMVC.Controllers
 {
     public class AtoresController : Controller
     {
         private IngressoDbContext _context;
-
         public AtoresController(IngressoDbContext context)
         {
             _context = context;
         }
-
         public IActionResult Index()
         {
             return View(_context.Atores);
@@ -25,61 +20,64 @@ namespace IngressoMVC.Controllers
 
         public IActionResult Detalhes(int id)
         {
-            var result = _context.Atores.Find(id);
-
-            return View(result);
+            return View(_context.Atores.Find(id));
         }
-
         public IActionResult Criar()
         {
             return View();
         }
 
         [HttpPost]
-        public IActionResult Criar(PostAtorDTO atorDTO)
+        public IActionResult Criar(PostAtorDTO atorDto)
         {
-            //receber os dados - ok
             //validar os dados
-            if (!ModelState.IsValid || !atorDTO.FotoPerfilURL.EndsWith(".jpg"))
+            if (!ModelState.IsValid || !atorDto.FotoPerfilURL.EndsWith(".jpg"))
             {
-                return View(atorDTO);
+                return View(atorDto);
             }
-            //instanciar um novo ator que recebe os dados -- ok
-            Ator ator = new Ator(atorDTO.Nome, atorDTO.Bio, atorDTO.FotoPerfilURL);
-
-            //gravar esse ator no banco de dados -- ok
+            //instanciar novo ator
+            Ator ator = new Ator(atorDto.Nome, atorDto.Bio, atorDto.FotoPerfilURL);
+            //gravar esse ator no banco de dados
             _context.Atores.Add(ator);
-
-            //salvar as mudanças -- ok
+            //salvar as mudanças
             _context.SaveChanges();
-
             return RedirectToAction(nameof(Index));
         }
 
         public IActionResult Atualizar(int id)
         {
-            // buscar o ator na view
-            // passar o ator na view
-            return View();
+            if (id == null)
+                return NotFound();
+
+            //buscar o ator no banco
+            var result = _context.Atores.FirstOrDefault(a => a.Id == id);
+
+            if (result == null)
+                return View();
+
+            //passar o ator na view
+            return View(result);
+        }
+
+        [HttpPost]
+        public IActionResult Atualizar(int id, PostAtorDTO atorDto)
+        {
+            if (!ModelState.IsValid)
+                return View();
         }
 
         public IActionResult Deletar(int id)
         {
-            // buscar o ator no banco
             var result = _context.Atores.FirstOrDefault(a => a.Id == id);
-            // buscar o ator na view
             if (result == null) return View();
-
             return View(result);
         }
-
-        [HttpDelete, ActionName("Deletar")]
+        [HttpPost, ActionName("Deletar")]
         public IActionResult ConfirmarDeletar(int id)
         {
             var result = _context.Atores.FirstOrDefault(a => a.Id == id);
             _context.Atores.Remove(result);
             _context.SaveChanges();
-
             return RedirectToAction(nameof(Index));
         }
     }

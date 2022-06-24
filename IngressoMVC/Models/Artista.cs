@@ -31,5 +31,13 @@ namespace IngressoMVC.Models
 
         [Display(Name = "Foto de Perfil")]
         public string FotoPerfilURL { get; private set; }
+
+        public void AtualizarDados(string nome, string bio, string fotoPerfilURL)
+        {
+            Nome = nome;
+            Bio = bio;
+            FotoPerfilURL = fotoPerfilURL;
+            DataAlteracao = System.DateTime.Now;
+        }
     }
 }
